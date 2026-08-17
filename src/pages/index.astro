@@ -1,0 +1,190 @@
+---
+import "../styles/global.css";
+import "../styles/notepad.css";
+
+import { getCollection, render } from "astro:content";
+
+
+/* =========================================================
+   WRITEUPS
+   ========================================================= */
+
+const entries = await getCollection("writeups");
+
+const writeups = await Promise.all(
+    entries.map(async (entry) => {
+        const { Content } = await render(entry);
+
+        const filename = entry.id.split("/").pop() ?? entry.id;
+        const [category, ...nameParts] = filename.split("_");
+
+        const displayName =
+            nameParts.length > 0
+                ? nameParts.join("_")
+                : filename;
+
+        return {
+            entry,
+            Content,
+            category: category.toLowerCase(),
+            displayName,
+        };
+    })
+);
+
+type Writeup = (typeof writeups)[number];
+
+const categorizedWriteups = writeups.reduce<Record<string, Writeup[]>>(
+    (groups, writeup) => {
+        if (!groups[writeup.category]) {
+            groups[writeup.category] = [];
+        }
+
+        groups[writeup.category].push(writeup);
+
+        return groups;
+    },
+    {}
+);
+
+
+/* =========================================================
+   STATIC PAGES
+   ========================================================= */
+
+const pages = await getCollection("pages");
+
+const aboutEntry = pages.find((entry) => entry.id === "about");
+const toolsEntry = pages.find((entry) => entry.id === "tools");
+
+let AboutContent = null;
+let ToolsContent = null;
+
+if (aboutEntry) {
+    const { Content } = await render(aboutEntry);
+    AboutContent = Content;
+}
+
+if (toolsEntry) {
+    const { Content } = await render(toolsEntry);
+    ToolsContent = Content;
+}
+---
+
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link rel="icon" href="/favicon.ico" />
+		<meta name="viewport" content="width=device-width" />
+		<meta name="generator" content={Astro.generator} />
+		<title>xaos333</title>
+	</head>
+
+	<body>
+
+		<div id="writeup-store" hidden>
+			{
+				writeups.map(({ entry, Content }) => (
+					<div data-writeup-source={entry.id}>
+						<Content />
+					</div>
+				))
+			}
+		</div>
+
+		<div id="static-pages" hidden>
+			
+			<div id="about-content">{AboutContent && <AboutContent />}</div>
+			<div id="tools-content">{ToolsContent && <ToolsContent />}</div>
+
+		</div>
+
+
+		<div class="theme-layer theme-light">
+
+			<img class="tree" src="/assets/images/deathtree.png" alt=""/>
+			<div class="cloud"></div>
+
+		</div>
+		
+		<div class="theme-layer theme-dark">
+			<div class="mountain"></div>
+		
+		</div>
+
+		<div class="desktop">
+
+			<div class="sidebar">
+
+				<button class="writeup-button" id="writeup-button"></button>
+				<button class="about-button" id="about-button">About</button>
+    			<button class="tools-button" id="tools-button">Tools</button>
+
+				
+				<button class="dark-mode-button" id="dark-mode-button"></button>
+
+			</div>
+
+			<div class="writeup-list" id="writeup-list">
+				{
+					Object.entries(categorizedWriteups).map(([category, entries]) => (
+						<div class="writeup-category">
+
+							<button class="category-button">{category.toUpperCase()}</button>
+
+							<div class="category-entries">
+								{
+									entries.map(({ entry, displayName }) => (
+										<button class="writeup-entry" data-writeup-id={entry.id}>{displayName}</button>
+									))
+								}
+							</div>
+
+						</div>
+					))
+				}
+</div>
+
+
+			<div class="notepad-window" id="notepad-window">
+				<div class="notepad-title" id="notepad-title"></div>
+
+				<div class="notepad-dragbar" id="notepad-dragbar"></div>
+				
+				<button class="notepad-close" id="notepad-close" aria-label="Close Notepad"></button>
+
+				<article class="writeup-content" id="writeup-content">
+					<div class="writeup-text">
+					</div>
+				</article>
+			</div>
+
+			<div class="payload-window" id="payload-window">
+
+				<div class="payload-dragbar" id="payload-dragbar"></div>
+
+				<div class="payload-title" id="payload-title"></div>
+
+				<button class="payload-close" id="payload-close" aria-label="Close">X</button>
+
+				<pre class="payload-content"><code id="payload-code"></code></pre>
+
+			</div>
+
+		</div>
+		
+		<script>
+			import "../scripts/main.js"
+		</script>
+
+
+	</body>
+
+</html>
+
+
+
+
+

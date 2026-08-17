@@ -1,0 +1,526 @@
+.notepad-window {
+    display: none;
+    position: absolute;
+
+    width: 839px;
+    height: 679px;
+
+    background-image: url("/assets/windows/note.png");
+    background-size: 100% 100%;
+
+    z-index: 10;
+}
+
+.notepad-window.open {
+    display: block;
+}
+
+
+/* =========================================================
+   NOTEPAD TITLE / CONTROLS
+   ========================================================= */
+
+.notepad-close {
+    position: absolute;
+
+    top: 3px;
+    right: 3px;
+
+    width: 22px;
+    height: 22px;
+
+    padding: 0;
+    border: 0;
+
+    background: transparent;
+
+    z-index: 50;
+}
+
+.notepad-title {
+    position: absolute;
+
+    top: 9.5px;
+    left: 82px;
+
+    color: white;
+
+    font-family: Tahoma, sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+
+    text-shadow: 1.2px 0.5px 0 rgba(0, 0, 0, 0.9);
+
+    pointer-events: none;
+    user-select: none;
+
+    -webkit-font-smoothing: none;
+    font-smooth: never;
+
+    z-index: 11;
+}
+
+.notepad-dragbar {
+    position: absolute;
+
+    top: 0;
+    left: 0;
+    right: 0;
+
+    height: 27px;
+
+    touch-action: none;
+    user-select: none;
+
+    cursor: var(--cursor-normal);
+
+    z-index: 10;
+}
+
+
+/* =========================================================
+   WRITEUP CONTENT
+   ========================================================= */
+
+.writeup-content {
+    position: absolute;
+
+    top: 50.95px;
+    left: 4px;
+    right: 23px;
+    bottom: 4px;
+
+    padding: 12px 10px;
+
+    box-sizing: border-box;
+
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    background: white;
+    color: #111111;
+
+    font-family: Verdana, Tahoma, Arial, sans-serif;
+    font-size: 14px;
+    line-height: 1.5;
+
+    cursor: var(--cursor-text);
+}
+
+.writeup-category {
+    margin-bottom: 4px;
+}
+
+.category-button {
+    display: block;
+    width: 150px;
+
+    text-align: left;
+
+    font-family: Tahoma, sans-serif;
+    font-weight: bold;
+}
+
+.category-entries {
+    display: none;
+
+    margin-left: 15px;
+}
+
+.writeup-category.open .category-entries {
+    display: block;
+}
+
+.writeup-entry {
+    display: block;
+
+    margin-top: 2px;
+
+    text-align: left;
+}
+
+
+/* =========================================================
+   INLINE CODE - LIGHT MODE
+   ========================================================= */
+
+.writeup-content :not(pre) > code {
+    background: #f3f3f3;
+    color: #000080;
+
+    border-top: 1px solid #808080;
+    border-left: 1px solid #808080;
+    border-right: 1px solid #ffffff;
+    border-bottom: 1px solid #ffffff;
+
+    padding: 1px 3px;
+
+    font-family: "Lucida Console", "Courier New", monospace;
+    font-size: 0.9em;
+
+    white-space: nowrap;
+}
+
+
+/* =========================================================
+   FENCED CODE BLOCKS - LIGHT MODE
+   ========================================================= */
+
+.writeup-content pre {
+    background: #eeeeee;
+
+    border: 1px solid #a0a0a0;
+
+    padding: 8px 10px;
+    margin: 12px 4px;
+
+    overflow-x: auto;
+    overflow-y: hidden;
+
+    font-family: "Lucida Console", "Courier New", monospace;
+    font-size: 13px;
+    line-height: 1.35;
+}
+
+.writeup-content pre code {
+    background: none;
+    color: inherit;
+
+    border: none;
+
+    padding: 0;
+
+    font-family: inherit;
+    font-size: inherit;
+
+    white-space: pre;
+}
+
+
+/* =========================================================
+   DARK MODE - WRITEUP
+   ========================================================= */
+
+.writeup-content-dark,
+body.dark .writeup-content {
+    background: rgb(40, 41, 43);
+    color: rgb(255, 235, 235);
+}
+
+
+/* inline code - dark */
+
+body.dark .writeup-content :not(pre) > code {
+    background: #1d1f22;
+    color: #ffb3b3;
+
+    border-top: 1px solid #555555;
+    border-left: 1px solid #555555;
+    border-right: 1px solid #111111;
+    border-bottom: 1px solid #111111;
+}
+
+
+/* fenced code blocks - dark */
+
+body.dark .writeup-content pre {
+    background: #232529;
+
+    border: 1px solid #444444;
+
+    color: #eeeeee;
+}
+
+body.dark .writeup-content pre code {
+    background: none;
+    color: inherit;
+
+    border: none;
+}
+
+
+/* =========================================================
+   PAYLOAD / SOURCE WINDOW
+   ========================================================= */
+
+.payload-window {
+    display: none;
+    position: absolute;
+
+    left: 300px;
+    top: 100px;
+
+    width: 700px;
+    height: 550px;
+
+    background: #eeeeee;
+
+    border: 2px solid #777777;
+
+    z-index: 30;
+}
+
+.payload-window.open {
+    display: block;
+}
+
+
+/* =========================================================
+   PAYLOAD TITLE / CONTROLS
+   ========================================================= */
+
+.payload-dragbar {
+    position: absolute;
+
+    top: 0;
+    left: 0;
+    right: 0;
+
+    height: 28px;
+
+    touch-action: none;
+    user-select: none;
+
+    cursor: var(--cursor-normal);
+
+    z-index: 10;
+}
+
+.payload-title {
+    position: absolute;
+
+    top: 5px;
+    left: 10px;
+
+    font-family: Tahoma, sans-serif;
+    font-size: 12px;
+
+    pointer-events: none;
+    user-select: none;
+}
+
+.payload-close {
+    position: absolute;
+    top: 4px;
+    right: 4px;
+
+    width: 22px;
+    height: 22px;
+
+    padding: 0;
+
+    border: 1px solid #7f1d1d;
+    border-radius: 2px;
+
+    background: linear-gradient(
+        to bottom,
+        #f6a39a,
+        #d84a3f
+    );
+
+    color: white;
+
+    font-family: Tahoma, sans-serif;
+    font-size: 14px;
+    font-weight: bold;
+
+    line-height: 18px;
+
+    text-shadow: 1px 1px #7a1f1f;
+
+    z-index: 20;
+}
+
+/* =========================================================
+   PAYLOAD CONTENT
+   ========================================================= */
+
+.payload-content {
+    position: absolute;
+
+    top: 30px;
+    left: 5px;
+    right: 5px;
+    bottom: 5px;
+
+    margin: 0;
+    padding: 10px;
+
+    overflow: auto;
+
+    background: white;
+    color: #202020;
+
+    font-family: "Lucida Console", "Courier New", monospace;
+    font-size: 12px;
+    line-height: 1.35;
+
+    white-space: pre;
+
+    cursor: var(--cursor-text);
+}
+
+#payload-code {
+    color: #202020;
+}
+
+
+/* =========================================================
+   PAYLOAD SYNTAX HIGHLIGHTING - LIGHT MODE
+   ========================================================= */
+
+.payload-content .hljs-keyword {
+    color: #0000b8;
+}
+
+.payload-content .hljs-string {
+    color: #a31515;
+}
+
+.payload-content .hljs-comment {
+    color: #3f7f3f;
+}
+
+.payload-content .hljs-number {
+    color: #098658;
+}
+
+.payload-content .hljs-title,
+.payload-content .hljs-title.function_ {
+    color: #795e26;
+}
+
+.payload-content .hljs-built_in {
+    color: #267f99;
+}
+
+.payload-content .hljs-variable,
+.payload-content .hljs-params {
+    color: #001080;
+}
+
+.payload-content .hljs-property,
+.payload-content .hljs-attr,
+.payload-content .hljs-attribute {
+    color: #001080;
+}
+
+.payload-content .hljs-literal {
+    color: #0000ff;
+}
+
+.payload-content .hljs-subst {
+    color: #001080;
+}
+
+.payload-content .hljs-type,
+.payload-content .hljs-class,
+.payload-content .hljs-symbol {
+    color: #267f99;
+}
+
+.payload-content .hljs-meta {
+    color: #795e26;
+}
+
+.payload-content .hljs-operator,
+.payload-content .hljs-punctuation {
+    color: #202020;
+}
+
+
+/* =========================================================
+   PAYLOAD DARK MODE
+   ========================================================= */
+
+body.dark .payload-window {
+    background: #1f1f1f;
+
+    border-color: #444444;
+}
+
+body.dark .payload-title {
+    color: whitesmoke;
+}
+
+body.dark .payload-content {
+    background: #28292b;
+    color: #d4d4d4;
+}
+
+body.dark #payload-code {
+    color: #d4d4d4;
+}
+
+body.dark .payload-close {
+    background: #3a3a3a;
+    color: #f5f5f5;
+
+    border-top-color: #666;
+    border-left-color: #666;
+    border-right-color: #111;
+    border-bottom-color: #111;
+}
+
+/* =========================================================
+   PAYLOAD SYNTAX HIGHLIGHTING - DARK MODE
+   ========================================================= */
+
+body.dark .payload-content .hljs-keyword {
+    color: #569cd6;
+}
+
+body.dark .payload-content .hljs-string {
+    color: #ce9178;
+}
+
+body.dark .payload-content .hljs-comment {
+    color: #6a9955;
+}
+
+body.dark .payload-content .hljs-number {
+    color: #b5cea8;
+}
+
+body.dark .payload-content .hljs-title,
+body.dark .payload-content .hljs-title.function_ {
+    color: #dcdcaa;
+}
+
+body.dark .payload-content .hljs-built_in {
+    color: #4ec9b0;
+}
+
+body.dark .payload-content .hljs-variable,
+body.dark .payload-content .hljs-params {
+    color: #9cdcfe;
+}
+
+body.dark .payload-content .hljs-property,
+body.dark .payload-content .hljs-attr,
+body.dark .payload-content .hljs-attribute {
+    color: #9cdcfe;
+}
+
+body.dark .payload-content .hljs-literal {
+    color: #569cd6;
+}
+
+body.dark .payload-content .hljs-subst {
+    color: #9cdcfe;
+}
+
+body.dark .payload-content .hljs-type,
+body.dark .payload-content .hljs-class,
+body.dark .payload-content .hljs-symbol {
+    color: #4ec9b0;
+}
+
+body.dark .payload-content .hljs-meta {
+    color: #c586c0;
+}
+
+body.dark .payload-content .hljs-operator,
+body.dark .payload-content .hljs-punctuation {
+    color: #d4d4d4;
+}

@@ -1,0 +1,470 @@
+:root {
+    --cursor-normal: url("/assets/cursors/cursor.cur"), auto;
+    --cursor-hand: url("/assets/cursors/hand.cur"), pointer;
+    --cursor-text: url("/assets/cursors/beam.cur"), text;
+}
+
+
+/* =========================================================
+   THEME LAYERS
+   ========================================================= */
+
+.theme-layer {
+    position: fixed;
+    inset: 0;
+
+    width: 100%;
+    height: 100%;
+
+    overflow: hidden;
+
+    pointer-events: none;
+    user-select: none;
+
+    z-index: 0;
+}
+
+.theme-light {
+    background: linear-gradient(
+        0deg,
+        #88a0b8 0%,
+        rgba(255, 191, 243, 1) 100%
+    );
+}
+
+.theme-dark {
+    background: linear-gradient(
+        0deg,
+        rgba(74, 75, 79, 1) 0%,
+        rgba(20, 20, 33, 1) 100%
+    );
+
+    clip-path: inset(0 0 100% 0);
+
+    transition:
+        clip-path 1.5s cubic-bezier(0.76, 0, 0.24, 1);
+}
+
+body.dark .theme-dark {
+    clip-path: inset(0 0 0 0);
+}
+
+
+/* =========================================================
+   PAGE
+   ========================================================= */
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+
+    margin: 0;
+
+    overflow: hidden;
+
+    cursor: var(--cursor-normal);
+}
+
+body {
+    padding: 0;
+    min-height: 100vh;
+
+    box-sizing: border-box;
+}
+
+body.dark {
+    color: whitesmoke;
+}
+
+.desktop {
+    position: relative;
+
+    width: 100%;
+    height: 100%;
+
+    padding: 10px;
+
+    box-sizing: border-box;
+
+    z-index: 10;
+}
+
+
+/* =========================================================
+   THEME-SPECIFIC ELEMENTS
+   ========================================================= */
+
+.light-only {
+    display: block;
+}
+
+.dark-only {
+    display: none;
+}
+
+body.dark .light-only {
+    display: none;
+}
+
+body.dark .dark-only {
+    display: block;
+}
+
+
+/* =========================================================
+   DECOR
+   ========================================================= */
+
+.mountain {
+    position: absolute;
+
+    bottom: 0;
+
+    width: 100%;
+    height: 270px;
+
+    background-image: url("/assets/images/mountain.png");
+    background-repeat: repeat-x;
+    background-position: bottom left;
+
+    z-index: 0;
+}
+
+.tree {
+    position: absolute;
+
+    right: 0;
+    bottom: 0;
+
+    user-select: none;
+
+    z-index: 9;
+}
+
+.cloud {
+    position: absolute;
+
+    bottom: -50px;
+
+    width: 100%;
+    height: 350px;
+
+    background-image: url("/assets/images/cloud.png");
+    background-repeat: repeat-x;
+    background-position: bottom left;
+
+    user-select: none;
+    pointer-events: none;
+
+    animation: scroll-clouds 33.3s linear infinite;
+
+    z-index: 0;
+}
+
+@keyframes scroll-clouds {
+    from {
+        background-position: 0 bottom;
+    }
+
+    to {
+        background-position: -512px bottom;
+    }
+}
+
+
+/* =========================================================
+   SIDEBAR BUTTONS
+   ========================================================= */
+
+.sidebar {
+    display: flex;
+    align-items: flex-start;
+    gap: 6px;
+}
+
+.about-button,
+.tools-button {
+    height: 40px;
+    padding: 0 14px;
+
+    font-family: Tahoma, sans-serif;
+    font-size: 12px;
+
+    background: #d4d0c8;
+
+    border-top: 2px solid white;
+    border-left: 2px solid white;
+    border-right: 2px solid #404040;
+    border-bottom: 2px solid #404040;
+}
+
+.about-button:active,
+.tools-button:active {
+    border-top: 2px solid #404040;
+    border-left: 2px solid #404040;
+    border-right: 2px solid white;
+    border-bottom: 2px solid white;
+}
+.writeup-button {
+    width: 256px;
+    height: 80px;
+
+    border: none;
+
+    background-image: url("/assets/buttons/graybuttontext.png");
+}
+
+.writeup-button:hover {
+    opacity: 0.999;
+}
+
+.writeup-button:active {
+    filter: brightness(90%);
+    margin: 1px;
+}
+
+.dark-mode-button {
+    position: fixed;
+
+    top: 0;
+    right: 0;
+
+    width: 50px;
+    height: 40px;
+
+    padding: 0;
+    margin: 0;
+
+    border: none;
+
+    background-color: transparent;
+    background-image: url("/assets/buttons/moonneutralXD.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.dark-mode-button:hover {
+    opacity: 0.5;
+}
+
+
+/* =========================================================
+   WRITEUP LIST
+   ========================================================= */
+
+.writeup-list {
+    display: none;
+
+    position: absolute;
+
+    top: 120px;
+    left: 20px;
+
+    padding: 0;
+
+    z-index: 20;
+}
+
+.writeup-list.open {
+    display: block;
+}
+
+.writeup-entry {
+    display: block;
+}
+
+
+/* =========================================================
+   PAYLOAD WINDOW THEME
+   ========================================================= */
+
+.payload-content {
+    background: #ffffff;
+}
+
+#payload-code {
+    color: #202020;
+}
+
+body.dark .payload-window {
+    background: #1f1f1f;
+    border-color: #444444;
+}
+
+body.dark .payload-title {
+    color: whitesmoke;
+}
+
+body.dark .payload-content {
+    background: #28292b;
+}
+
+body.dark #payload-code {
+    color: #d4d4d4;
+}
+
+
+/* =========================================================
+   SYNTAX HIGHLIGHTING — LIGHT MODE
+   ========================================================= */
+
+/* keywords: const, let, function, return, async, import */
+.payload-content .hljs-keyword {
+    color: #0000b8;
+}
+
+/* strings */
+.payload-content .hljs-string {
+    color: #a31515;
+}
+
+/* comments */
+.payload-content .hljs-comment {
+    color: #3f7f3f;
+}
+
+/* numbers */
+.payload-content .hljs-number {
+    color: #098658;
+}
+
+/* function names */
+.payload-content .hljs-title,
+.payload-content .hljs-title.function_ {
+    color: #795e26;
+}
+
+/* built-in functions / objects */
+.payload-content .hljs-built_in {
+    color: #267f99;
+}
+
+/* variables and parameters */
+.payload-content .hljs-variable,
+.payload-content .hljs-params {
+    color: #001080;
+}
+
+/* object properties */
+.payload-content .hljs-property,
+.payload-content .hljs-attr,
+.payload-content .hljs-attribute {
+    color: #001080;
+}
+
+/* true, false, null, etc. */
+.payload-content .hljs-literal {
+    color: #0000ff;
+}
+
+/* template-string substitutions such as ${thing} */
+.payload-content .hljs-subst {
+    color: #001080;
+}
+
+/* types/classes */
+.payload-content .hljs-type,
+.payload-content .hljs-class,
+.payload-content .hljs-symbol {
+    color: #267f99;
+}
+
+/* meta/import related tokens */
+.payload-content .hljs-meta {
+    color: #795e26;
+}
+
+/* punctuation/operators */
+.payload-content .hljs-operator,
+.payload-content .hljs-punctuation {
+    color: #202020;
+}
+
+
+/* =========================================================
+   SYNTAX HIGHLIGHTING — DARK MODE
+   ========================================================= */
+
+body.dark .payload-content .hljs-keyword {
+    color: #569cd6;
+}
+
+body.dark .payload-content .hljs-string {
+    color: #ce9178;
+}
+
+body.dark .payload-content .hljs-comment {
+    color: #6a9955;
+}
+
+body.dark .payload-content .hljs-number {
+    color: #b5cea8;
+}
+
+body.dark .payload-content .hljs-title,
+body.dark .payload-content .hljs-title.function_ {
+    color: #dcdcaa;
+}
+
+body.dark .payload-content .hljs-built_in {
+    color: #4ec9b0;
+}
+
+body.dark .payload-content .hljs-variable,
+body.dark .payload-content .hljs-params {
+    color: #9cdcfe;
+}
+
+body.dark .payload-content .hljs-property,
+body.dark .payload-content .hljs-attr,
+body.dark .payload-content .hljs-attribute {
+    color: #9cdcfe;
+}
+
+body.dark .payload-content .hljs-literal {
+    color: #569cd6;
+}
+
+body.dark .payload-content .hljs-subst {
+    color: #9cdcfe;
+}
+
+body.dark .payload-content .hljs-type,
+body.dark .payload-content .hljs-class,
+body.dark .payload-content .hljs-symbol {
+    color: #4ec9b0;
+}
+
+body.dark .payload-content .hljs-meta {
+    color: #c586c0;
+}
+
+body.dark .payload-content .hljs-operator,
+body.dark .payload-content .hljs-punctuation {
+    color: #d4d4d4;
+}
+
+
+/* =========================================================
+   CURSORS
+   ========================================================= */
+
+button,
+[role="button"] {
+    cursor: var(--cursor-hand);
+}
+
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+article,
+pre,
+code {
+    cursor: var(--cursor-text);
+}
